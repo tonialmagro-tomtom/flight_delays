@@ -53,7 +53,7 @@ def split_data(data: DataFrame, parameters: Dict) -> Tuple:
 
 def make_pyspark_pipeline(data_train: DataFrame, params: Dict):
     string_fields = params["string_fields"]
-    categorical_fields = params["caregorical_fields"]
+    categorical_fields = params["categorical_fields"]
     continuous_fields = params["continuous_fields"]
 
     output_cols = [f"{column_name}Index" for column_name in string_fields]

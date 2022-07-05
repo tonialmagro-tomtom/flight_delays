@@ -9,8 +9,6 @@ from .nodes import (
     select_cols,
     feature_engineering,
     make_pyspark_pipeline,
-    make_predictions,
-    report_accuracy,
     split_data,
 )
 
@@ -21,17 +19,13 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=select_cols,
                 inputs=["flights", "parameters"],
-                outputs=[
-                    "flights_reduced",
-                ],
+                outputs="flights_reduced",
                 name="select_cols",
             ),
             node(
                 func=feature_engineering,
                 inputs=["flights_reduced", "parameters"],
-                outputs=[
-                    "flights_extra",
-                ],
+                outputs="flights_extra",
                 name="feature_engineering",
             ),
             node(
@@ -46,9 +40,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=make_pyspark_pipeline,
                 inputs=["data_train", "parameters"],
-                outputs=[
-                    "pipeline_classifier",
-                ],
+                outputs="pipeline_classifier",
                 name="fit_pipeline",
             ),
         ]

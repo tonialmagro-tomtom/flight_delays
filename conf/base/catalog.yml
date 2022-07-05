@@ -44,7 +44,7 @@
 
 flights:
   type: spark.SparkDataSet
-  filepath: data/01_raw/on_time_reporting.csv.gz
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/01_raw/on_time_reporting.csv.gz
   file_format: csv
   load_args:
     header: True
@@ -54,34 +54,36 @@ flights:
 
 flights_reduced:
   type: spark.SparkDataSet
-  filepath: data/02_intermediate/on_time_reporting_reduced.csv.gz
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/on_time_reporting_reduced.csv.gz
   file_format: csv
   load_args:
     header: True
     inferSchema: True
   save_args:
     header: True
+    mode: overwrite
 
 flights_extra:
   type: spark.SparkDataSet
-  filepath: data/04_feature/flights_delayed.csv.gz
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/04_feature/flights_delayed.csv.gz
   file_format: csv
   load_args:
     header: True
     inferSchema: True
   save_args:
     header: True
+    mode: overwrite
 # We need to set mode to 'overwrite' in save_args so when saving the dataset it is replaced each time it is run
 # for all SparkDataSets.
 data_train:
   type: spark.SparkDataSet
-  filepath: data/02_intermediate/data_train.parquet
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/data_train.parquet
   save_args:
     mode: overwrite
 
 data_test:
   type: spark.SparkDataSet
-  filepath: data/02_intermediate/data_test.parquet
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/data_test.parquet
   save_args:
     mode: overwrite
 
