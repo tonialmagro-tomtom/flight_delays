@@ -1,0 +1,89 @@
+train_fraction: 0.8
+random_state: 3
+target_column: Delayed
+numTrees: 20
+sample_fraction: 0.01
+columns_of_interest:
+  -
+    Year
+  -
+    Month
+  -
+    DayofMonth
+  -
+    DayOfWeek
+  -
+    Reporting_Airline
+  -
+    Tail_Number
+  -
+    Flight_Number_Reporting_Airline
+  -
+    Origin 
+  -
+    OriginCityName
+  -
+    OriginStateName
+  -
+    Dest
+  -
+    DestCityName
+  -
+    DestStateName
+  -
+   DepTime
+  -
+    DepDelay
+  -
+    AirTime
+  -
+    Distance
+
+categorical_fields:
+  -
+    Year
+  -
+    Month
+  -
+    DayofMonth
+  -
+    DayOfWeek
+  -
+    Reporting_Airline
+  -
+    Origin 
+  -
+    OriginCityName
+  -
+    OriginStateName
+  -
+    Dest
+  -
+    DestCityName
+  -
+    DestStateName
+
+continuous_fields:
+  -
+    Distance
+  -
+    DepHour
+
+string_fields:
+  -
+    Reporting_Airline
+  -
+    Tail_Number
+  -
+    Origin 
+  -
+    OriginCityName
+  -
+    OriginStateName
+  -
+    Dest
+  -
+    DestCityName
+  -
+    DestStateName
+
