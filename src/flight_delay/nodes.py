@@ -90,11 +90,12 @@ def make_pyspark_pipeline(data_train: DataFrame, params: Dict):
 def predict(data_test: DataFrame, pipe: PipelineModel, params):
     target = params["target_column"]
 
-    return pipe.transform(data_test).select([target, "probability", "prediction"])
+    return pipe.transform(data_test).select([target, "probability", "prediction","rawPrediction"])
 
 
-def report_evaluator(data_test: DataFrame):
-    evaluator = BinaryClassificationEvaluator(labelCol="Delayed")
+def report_evaluator(data_test: DataFrame, params: Dict):
+    target = params["target_column"]
+    evaluator = BinaryClassificationEvaluator(labelCol=target)
     areaUnderROC = evaluator.evaluate(data_test)
     logger = logging.getLogger(__name__)
     logger.info("Model has an areaUnderROC of %.3f on test data.", areaUnderROC)
