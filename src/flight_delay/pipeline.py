@@ -6,6 +6,8 @@ generated using Kedro 0.18.1
 from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import (
+    predict,
+    report_evaluator,
     select_cols,
     feature_engineering,
     make_pyspark_pipeline,
@@ -42,6 +44,18 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs=["data_train", "parameters"],
                 outputs="pipeline_classifier",
                 name="fit_pipeline",
+            ),
+            node(
+                func=predict,
+                inputs=["data_test", "pipeline_classifier", "parameters"],
+                outputs="test_with_pred",
+                name="transform_test",
+            ),
+            node(
+                func=report_evaluator,
+                inputs=["test_with_pred", "parameters"],
+                outputs=None,
+                name="report_accuracy",
             ),
         ]
     )

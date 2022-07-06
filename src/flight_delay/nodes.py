@@ -10,9 +10,10 @@ import numpy as np
 import pandas as pd
 
 from pyspark.sql import DataFrame, types
-from pyspark.ml.pipeline import Pipeline
+from pyspark.ml.pipeline import Pipeline, PipelineModel
 from pyspark.ml.feature import VectorAssembler, OneHotEncoder, StringIndexer
 from pyspark.ml.classification import RandomForestClassifier
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
 
 
 def select_cols(df: DataFrame, params: Dict):
@@ -86,13 +87,14 @@ def make_pyspark_pipeline(data_train: DataFrame, params: Dict):
     return pipeline
 
 
-def report_accuracy(y_pred: pd.Series, y_test: pd.Series):
-    """Calculates and logs the accuracy.
+def predict(data_test: DataFrame, pipe: PipelineModel, params):
+    target = params["target_column"]
 
-    Args:
-        y_pred: Predicted target.
-        y_test: True target.
-    """
-    accuracy = (y_pred == y_test).sum() / len(y_test)
+    return pipe.transform(data_test).select([target, "probability", "prediction"])
+
+
+def report_evaluator(data_test: DataFrame):
+    evaluator = BinaryClassificationEvaluator(labelCol="Delayed")
+    areaUnderROC = evaluator.evaluate(data_test)
     logger = logging.getLogger(__name__)
-    logger.info("Model has an accuracy of %.3f on test data.", accuracy)
+    logger.info("Model has an areaUnderROC of %.3f on test data.", areaUnderROC)
