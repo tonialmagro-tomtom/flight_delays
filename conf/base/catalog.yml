@@ -87,6 +87,12 @@ data_test:
   save_args:
     mode: overwrite
 
+test_with_pred:
+  type: spark.SparkDataSet
+  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/07_model_output/data_test_w_pred.parquet
+  save_args:
+    mode: overwrite
+
 # This is an example how to use `MemoryDataSet` with Spark objects that aren't `DataFrame`'s.
 # In particular, the `assign` copy mode ensures that the `MemoryDataSet` will be assigned
 # the Spark object itself, not a deepcopy version of it, since deepcopy doesn't work with
