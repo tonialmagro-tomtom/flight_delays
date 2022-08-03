@@ -44,7 +44,7 @@
 
 flights:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/01_raw/on_time_reporting.csv.gz
+  filepath: /dbfs/FileStore/On_Time_Reporting_Carrier_On_Time_Performance__1987_present__2019_3_csv.gz
   file_format: csv
   load_args:
     header: True
@@ -54,7 +54,7 @@ flights:
 
 flights_reduced:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/on_time_reporting_reduced.csv.gz
+  filepath: /dbfs/FileStore/flight_delays/data/02_intermediate/on_time_reporting_reduced.csv.gz
   file_format: csv
   load_args:
     header: True
@@ -65,7 +65,7 @@ flights_reduced:
 
 flights_extra:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/04_feature/flights_delayed.csv.gz
+  filepath: /dbfs/FileStore/flight_delays/data/04_feature/flights_delayed.csv.gz
   file_format: csv
   load_args:
     header: True
@@ -77,19 +77,19 @@ flights_extra:
 # for all SparkDataSets.
 data_train:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/data_train.parquet
+  filepath: /dbfs/FileStore/flight_delays/data/02_intermediate/data_train.parquet
   save_args:
     mode: overwrite
 
 data_test:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/02_intermediate/data_test.parquet
+  filepath: /dbfs/FileStore/flight_delays/data/02_intermediate/data_test.parquet
   save_args:
     mode: overwrite
 
 test_with_pred:
   type: spark.SparkDataSet
-  filepath: gs://dataproc-staging-us-central1-189188088522-u8ddccfd/data/07_model_output/data_test_w_pred.parquet
+  filepath: /dbfs/FileStore/flight_delays/data/07_model_output/data_test_w_pred.parquet
   save_args:
     mode: overwrite
 
