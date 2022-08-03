@@ -15,6 +15,8 @@ from pyspark.ml.feature import VectorAssembler, OneHotEncoder, StringIndexer
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 
+from utils_example import complementary 
+
 
 def select_cols(df: DataFrame, params: Dict):
     cols = params["columns_of_interest"]
@@ -41,8 +43,13 @@ def split_data(data: DataFrame, parameters: Dict) -> Tuple:
     """
 
     # Split to training and testing data
+
+    comp = complementary(parameters["train_fraction"])
+
     data_train, data_test = data.randomSplit(
-        weights=[parameters["train_fraction"], 1 - parameters["train_fraction"]]
+        weights=[parameters["train_fraction"], comp]
+         #weights=[parameters["train_fraction"], 1 - parameters["train_fraction"]]
+
     )
     # X_train = data_train.drop(parameters["target_column"])
     # X_test = data_test.drop(parameters["target_column"])
