@@ -15,7 +15,7 @@ from pyspark.ml.feature import VectorAssembler, OneHotEncoder, StringIndexer
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 
-from utils_example import complementary 
+from flight_delay.utils import mathematics
 
 
 def select_cols(df: DataFrame, params: Dict):
@@ -44,7 +44,7 @@ def split_data(data: DataFrame, parameters: Dict) -> Tuple:
 
     # Split to training and testing data
 
-    comp = complementary(parameters["train_fraction"])
+    comp = mathematics.complementary(parameters["train_fraction"])
 
     data_train, data_test = data.randomSplit(
         weights=[parameters["train_fraction"], comp]
